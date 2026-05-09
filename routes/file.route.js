@@ -6,10 +6,12 @@ const {
     uploadFile,
     getMyFiles,
     deleteFile,
+    getPublicFile,
 } = require("../controllers/file.controller");
 
 router.post("/upload", protect, upload.single("file"), uploadFile);
 router.get("/", protect, getMyFiles);
+router.get("/public/:id", getPublicFile);
 router.delete("/:id", protect, deleteFile);
 
 module.exports = router;

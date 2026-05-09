@@ -51,6 +51,18 @@ exports.getMyFiles = async (req, res) => {
     }
 };
 
+exports.getPublicFile = async (req, res) => {
+    try {
+        const file = await File.findById(req.params.id).select(
+            "originalName url fileType resourceType size"
+        );
+        if (!file) return res.status(404).json({ message: "File not found" });
+        res.status(200).json({ file });
+    } catch (error) {
+        res.status(500).json({ message: "Failed to retrieve file", error: error.message });
+    }
+};
+
 exports.deleteFile = async (req, res) => {
     try {
         const file = await File.findById(req.params.id);
